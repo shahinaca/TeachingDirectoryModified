@@ -1,0 +1,25 @@
+{% extends 'layouts/layout.html' %}
+
+{% block content %}
+<div class="row">
+    <hr class="sidebar-divider">
+    <div class="clearfix"></div>
+</div>
+   <div class="container-fluid">
+       {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">  <!-- singular -->
+                    {{ message|safe }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+                    <!-- 404 Error Text -->
+                    <div class="text-center">
+                        <div class="error mx-auto" data-text="404">404</div>
+                        <p class="lead text-gray-800 mb-5">Page Not Found</p>
+                        <a href="{% url 'dashboard' %}">&larr; Back to Dashboard</a>
+                    </div>
+
+                </div>
+{% endblock %}

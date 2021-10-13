@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+
+  {% include "layouts/header.html" %}
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        {% include "layouts/sidenav.html" %}
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+          {% include "layouts/footer.html" %}
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Page level plugins -->
+    <script src="/static/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/static/js/demo/chart-area-demo.js"></script>
+    <script src="/static/js/demo/chart-pie-demo.js"></script>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+
+    <script language="javascript">
+
+         $("#teachers_details").change(function() {
+
+            var val = $(this).val();
+
+            switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
+                case 'csv':
+                    break;
+                default:
+                    $(this).val('');
+                    alert("not an .csv file");
+                    break;
+            }
+        });
+         $("#image_details").change(function() {
+
+            var val = $(this).val();
+
+            switch(val.substring(val.lastIndexOf('.') + 1).toLowerCase()){
+                case 'zip':
+                    break;
+                default:
+                    $(this).val('');
+                    alert("not an .zip file");
+                    break;
+            }
+        });
+         $("#filter-for-search").on('click',function(e) {
+            e.preventDefault();
+            urls = $(this).attr("hrefs");
+
+            window.location.href =urls+"?last_name="+$('#last_name').val()+"&subjects_taught="+$('#subjects_taught').val();
+
+            location.href
+        });
+    </script>
+
+
+</body>
+
+</html>

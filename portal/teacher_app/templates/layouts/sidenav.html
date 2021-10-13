@@ -1,0 +1,55 @@
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <div class="row">
+            <hr class="sidebar-divider">
+            <div class="clearfix"></div>
+        </div>
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'dashboard' %}">
+            <div class="sidebar-brand-text mx-3">Teacher Directory App</div>
+
+        </a>
+            {% if user.is_authenticated %}
+
+            <hr class="sidebar-divider">
+            <span class="text text-white text-center"> logged in as {{ user }}</span>
+            <a class="dropdown-item " href="{% url "logout" %}" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+            {% else %}
+
+                <a class="dropdown-item" href="{% url "login" %}" >
+                    <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Login</a>
+            {% endif %}
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item {% if filename == "dashboard" %} active {% endif %}">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Dashboard</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Nav Item - Pages Collapse Menu -->
+
+        <!-- Nav Item - Dashboard -->
+        {% with arr_grp='teachers teacher-upload teacherview' %}
+
+            <li class="nav-item {% if filename in arr_grp.split %} active {% endif %}">
+                <a class="nav-link" href="{% url 'teachers_list' %}">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Teacher Directory</span></a>
+            </li>
+        {% endwith %}
+
+
+    </ul>
+    <!-- End of Sidebar -->

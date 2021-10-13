@@ -1,0 +1,81 @@
+{% extends 'layouts/layout.html' %}
+
+{% block content %}
+
+<div class="row">
+    <hr class="sidebar-divider">
+    <div class="clearfix"></div>
+</div>
+<!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Import Teachers Details</h1>
+    </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">  <!-- singular -->
+                    {{ message|safe }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    <!-- DataTales Example -->
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+
+
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4"> Upload files!</h1>
+                            </div>
+                            <form method="post" enctype="multipart/form-data" class="user">
+                            {% csrf_token %}
+
+
+                                <div class="form-group row ">
+
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <span class="text text-danger">{{ form.teachers_details.errors }}</span>
+                                        <label for="teachers_details" class="text text-dark"> Teachers Details*</label>
+                                        {{form.teachers_details}}
+                                        <h6 class="text text-info">Note: Only .CSV file is acceptable Check sample file for ref:
+                                            <a href="/static/sample/sample-csv.csv" target="_blank">click here</a>
+                                        </h6>
+                                    </div>
+
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <span class="text text-danger">{{ form.image_details.errors }}</span>
+                                        <label for="teachers_details" class="text text-dark"> Profile Images *</label>
+                                        {{form.image_details}}
+                                        <h6 class="text text-info">Note: Only .zip file is acceptable Check sample file for ref:
+                                            <a href="/static/sample/sample-zip.zip">click here</a>
+
+                                        </h6>
+
+                                    </div>
+                                    <div class="clearfix"></div>
+
+
+                                </div>
+                                <input type="hidden" name="next" value="{{ next }}" />
+
+                                <div class="form-group row" >
+                                    <hr>
+                                    <div class="col-sm-5"></div>
+                                     <button class="btn btn-dark btn-user btn-block col-sm-2">
+                                        Submit
+                                    </button>
+                                    <div class="col-sm-5"></div>
+                                </div>
+                                <hr>
+
+                            </form>
+                            <hr>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

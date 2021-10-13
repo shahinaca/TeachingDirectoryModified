@@ -1,0 +1,135 @@
+{% extends 'layouts/layout.html' %}
+
+{% block content %}
+
+<div class="row">
+    <hr class="sidebar-divider">
+    <div class="clearfix"></div>
+</div>
+<!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Teacher Directory</h1>
+    </div>
+
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">  <!-- singular -->
+                {{ message|safe }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 ">
+
+            <div class="row col-xl-12 col-md-12">
+                <div class="col-xl-3 col-md-3">
+                    <h6 class="m-0 font-weight-bold text-dark">List</h6>
+
+                </div>
+                <div class="col-xl-3 col-md-3">
+                    <select type="text"class="form-control form-control-user" name="last_name" id="last_name" placeholder="Select" >
+                        <option value="" > Select Last Name</option>
+                        {% for one in array_last_name %}
+                            <option value="{{one}}" {% if last_name_query == one %} selected {% endif %}>{{one}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-xl-2 col-md-2">
+
+                    <select type="text"class="form-control form-control-user" name="last_name" id="subjects_taught" placeholder="Select" >
+                        <option value="" > Select Subjects</option>
+                        {% for one in array_subjects_thought %}
+                            <option value="{{one}}" {% if subject_query == one %} selected  {% endif %}>{{one}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-xl-1 col-md-1">
+                    <button hrefs="{% url 'teachers_list' %}" type="button" id="filter-for-search" class="form-control form-control-user btn btn-primary "><i class="fa fa-search"></i></button>
+                </div>
+                <div class="col-xl-1 col-md-1">
+                </div>
+                <div class="col-xl-2 col-md-2">
+                    <a href="{% url 'teacher_upload' %}" class="btn btn-dark "><i class="fa fa-upload"></i> Import Teachers</a>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Profile Image</th>
+                            <th>Email Address</th>
+                            <th>Subject Taught</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for teacher in page_obj %}
+
+                            <tr>
+                                <td>{{ teacher.first_name }}</td>
+                                <td>{{ teacher.last_name }}</td>
+
+                                <td><img src="{% if teacher.profile_picture %}{{teacher.profile_picture.url }}{% else %} /static/img/placeholder-image.jpg {% endif %}" width="150"></td>
+
+                                <td>{{ teacher.email_address }}</td>
+                                <td>
+                                    {% for subject in teacher.subjects_taught.all %}
+                                        <span class="text text-random">{{subject.display_name}}</span>
+                                        <br>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <a href="{% url 'teacher_view' teacher.id %}" class="btn btn-info "><i class="fa fa-eye"></i> View Teacher</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% if page_obj.count == 0 %}
+                            <tr>
+                                <td colspan="6" class="text-center"> Not Available !!</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    <div class="container p-4">
+                                        <div class="pagination justify-content-center">
+                                            <span class="step-links">
+                                              {% if page_obj.has_previous %}
+                                                  <a href="?page=1">&laquo; first</a>
+                                                  <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                              {% endif %}
+
+                                                <span class="current">
+                                                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                                                </span>
+
+                                              {% if page_obj.has_next %}
+                                                  <a href="?page={{ page_obj.next_page_number }}">next</a>
+                                                  <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                              {% endif %}
+
+                                            </span>
+                                            </div>
+                                        </div>
+                                </td>
+                            </tr>
+
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <!--Pagination-->
+      <!--end of Pagination-->
+
+        </div>
+    </div>
+
+{% endblock %}

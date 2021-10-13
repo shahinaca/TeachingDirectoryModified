@@ -1,0 +1,79 @@
+{% extends 'layouts/layout.html' %}
+
+{% block content %}
+
+<div class="row">
+    <hr class="sidebar-divider">
+    <div class="clearfix"></div>
+</div>
+<!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Teacher Directory View</h1>
+    </div>
+
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">  <!-- singular -->
+                {{ message|safe }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 ">
+
+            <div class="row col-xl-12 col-md-12">
+                <div class="col-xl-3 col-md-6">
+                    <h6 class="m-0 font-weight-bold text-dark">View</h6>
+
+                </div>
+                <div class="col-xl-7 col-md-7">
+                </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <tbody>
+                            <tr>
+                                <th>Profile Picture</th>
+                                <td><img src="{% if teacher.profile_picture %}{{teacher.profile_picture.url }}{% else %} /static/img/placeholder-image.jpg {% endif %}" width="150"></td>
+                            </tr>
+                            <tr>
+                                <th>First Name</th>
+                                <td>{{teacher.first_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Last Name</th>
+                                <td>{{teacher.last_name}}</td>
+                            </tr>
+                            <tr>
+                                <th>Email Address</th>
+                                <td>{{teacher.email_address}}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone Number</th>
+                                <td>{{teacher.phone_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>Room Number</th>
+                                <td>{{teacher.room_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>Subject Taught</th>
+                                <td>
+                                    {% for subject in teacher.subjects_taught.all %}
+                                        <span class="text text-random">{{subject.display_name}}</span>
+                                        <br>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
